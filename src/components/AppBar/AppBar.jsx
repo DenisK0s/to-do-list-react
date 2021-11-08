@@ -1,9 +1,23 @@
+// modules
 // import PropTypes from "prop-types";
 
-function index(props) {
-  return <div></div>;
+// styles
+import styles from './AppBar.module.css';
+
+// components
+import Logo from '../Logo';
+import Container from '../Utils/Container';
+
+function AppBar() {
+  return (
+    <header className={styles.AppBar}>
+      <Container>
+        <Logo />
+      </Container>
+    </header>
+  );
 }
 
-index.propTypes = {};
+// AppBar.propTypes = {};
 
-export default index;
+export default AppBar;

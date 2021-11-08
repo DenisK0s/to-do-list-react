@@ -27,4 +27,6 @@ img {
   width: 1200px;
   padding: 20px;
   margin: 0 auto;
+
+  outline: 1px solid blue;
 }

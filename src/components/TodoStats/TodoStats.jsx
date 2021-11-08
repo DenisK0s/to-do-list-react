@@ -1,24 +1,27 @@
-//модули
+// modules
 import PropTypes from 'prop-types';
 
-//стили
+//styles
 import styles from './TodoStats.module.css';
 
 const TodoStats = ({ allTodosQuant, completedTodosQuant }) => {
   return (
-    <div className={styles.todoStats}>
+    <div className={styles.TodoStats}>
       <p className={styles.TodoStatsField}>
-        All todos:{' '}
+        All todos
         <span className={styles.TodoStatsNumer}>{allTodosQuant}</span>
       </p>
       <p className={styles.TodoStatsField}>
-        Completed todos:{' '}
+        Completed todos
         <span className={styles.TodoStatsNumer}>{completedTodosQuant}</span>
       </p>
     </div>
   );
 };
 
-TodoStats.propTypes = {};
+TodoStats.propTypes = {
+  allTodosQuant: PropTypes.number,
+  completedTodosQuant: PropTypes.number,
+};
 
 export default TodoStats;

@@ -1,4 +1,4 @@
-//модули
+//modules
 import PropTypes from 'prop-types';
 
 const Container = ({ children }) => {

@@ -1,10 +1,10 @@
-// модули
+// modules
 import PropTypes from 'prop-types';
 
-//стили
+//styles
 import styles from './Input.module.css';
 
-//либы
+//libs
 import classNames from 'classnames';
 
 const Input = ({
@@ -20,7 +20,7 @@ const Input = ({
   labelExtClassName,
 }) => {
   return (
-    <label className={classNames(styles.Input__label, labelExtClassName)}>
+    <label className={classNames(styles.InputLabel, labelExtClassName)}>
       {inputLabel}
       <input
         type={type}
@@ -44,7 +44,6 @@ Input.propTypes = {
   title: PropTypes.string,
   value: PropTypes.string,
   onInputChange: PropTypes.func,
-  s,
 };
 
 export default Input;

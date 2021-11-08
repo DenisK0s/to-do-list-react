@@ -1,0 +1,11 @@
+.TodoStats {
+  outline: 1px solid blue;
+}
+
+.TodoStatsField {
+  outline: 1px solid blue;
+}
+
+.TodoStatsNumer {
+  margin-left: 10px;
+}

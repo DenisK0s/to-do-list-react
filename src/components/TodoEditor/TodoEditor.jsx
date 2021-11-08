@@ -1,40 +1,38 @@
-// модули
+// modules
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// компоненты
+// styles
+import styles from './TodoEditor.module.css';
+
+// libs
+
+// components
 // import Input from '../Input';
-import Button from '../Button';
+import Button from '../Utils/Button';
 
 const INILIAL_STATE = {
-  name: '',
-  value: '',
+  noteMessage: '',
 };
 
 class TodoEditor extends Component {
   static propTypes = {
-    prop: PropTypes,
+    onFormSubmit: PropTypes.func,
   };
 
   state = { ...INILIAL_STATE };
 
-  handleChange = ({ target }) => {
-    const { name, value, type, checked } = target;
-
-    const correctValue = type === 'checkbox' ? checked : value;
-
-    this.setState({ [name]: correctValue });
+  handleChange = ({ target: { value } }) => {
+    this.setState({ noteMessage: value });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
+    const { noteMessage } = this.state;
     const { onFormSubmit } = this.props;
 
-    const { name, value } = this.state;
-
-    console.log(name);
-    console.log(value);
+    onFormSubmit(noteMessage);
 
     this.resetForm();
   };
@@ -44,12 +42,21 @@ class TodoEditor extends Component {
   };
 
   render() {
-    const { value } = this.state;
+    const { noteMessage } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit} className={styles.TodoEditor}>
-        <textarea value={value} onChange={this.handleChange}></textarea>
-        <Button type="submit" className={styles.TodoEditorButton} />
+        <textarea
+          // rows="5"
+          value={noteMessage}
+          onChange={this.handleChange}
+          className={styles.TodoEditorField}
+        ></textarea>
+        <Button
+          type="submit"
+          className={styles.TodoEditorButton}
+          label="Save Todo"
+        />
       </form>
     );
   }

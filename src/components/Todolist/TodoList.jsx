@@ -1,16 +1,17 @@
-//модули
-import React from 'react';
+//modules
+import PropTypes from 'prop-types';
 
-//стили
-import styles from './TodoList.module.css';
-
-//либы
-import classNames from 'classnames/bind';
-const сlassesComposition = classNames.bind(styles);
-
-//компоненты
+//components
 import Button from '../Utils/Button';
 import Input from '../Input';
+
+//styles
+import styles from './TodoList.module.css';
+
+//libs
+import classNames from 'classnames/bind';
+
+const сlassesComposition = classNames.bind(styles);
 
 const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => {
   return (
@@ -18,7 +19,7 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => {
       {todos.map(({ id, text, completed }) => (
         <li
           key={id}
-          className={сlassesComposition(TodoListItem, {
+          className={сlassesComposition('TodoListItem', {
             TodoListItemCompleted: completed,
           })}
         >
@@ -28,11 +29,22 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => {
             onInputChange={() => onToggleCompleted(id)}
           />
           <p>{text}</p>
-          <Button callback={onDeleteTodo} callbackArgs={id} />
+          <Button
+            callback={onDeleteTodo}
+            callbackArgs={id}
+            className={styles.DelTodoButton}
+            label="Del"
+          />
         </li>
       ))}
     </ul>
   );
+};
+
+TodoList.propTypes = {
+  todos: PropTypes.array,
+  onDeleteTodo: PropTypes.func,
+  onToggleCompleted: PropTypes.func,
 };
 
 export default TodoList;

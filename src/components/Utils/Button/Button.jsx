@@ -15,7 +15,7 @@ const Button = ({
   callback,
   callbackArgs,
 }) => {
-  const combinedClassName = classnames(styles.button, className);
+  const combinedClassName = classnames(styles.Button, className);
 
   return callback ? (
     <button

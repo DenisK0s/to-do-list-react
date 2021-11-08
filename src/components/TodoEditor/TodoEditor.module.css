@@ -1,0 +1,13 @@
+.TodoEditor {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px 20px;
+
+  outline: 1px solid blue;
+}
+
+.TodoEditorField {
+  margin-right: 10px;
+
+  resize: none;
+}

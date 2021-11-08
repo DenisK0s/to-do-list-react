@@ -1,21 +1,57 @@
-// модули
+// modules
 import React, { Component } from 'react';
 
-// компоненты
+// libs
+import shortid from 'shortid';
+
+// components
+import AppBar from './components/AppBar';
+import Container from './components/Utils/Container';
 import TodoList from './components/TodoList';
 import TodoEditor from './components/TodoEditor';
-import Container from './components/Utils/Container';
+import TodoStats from './components/TodoStats';
+import TodoFilter from './components/TodoFilter';
 
-// Данные
+// Data
 import initialTodos from '../src/todos.json';
-import { Container } from '@mui/material';
 
 class App extends Component {
   state = {
     todos: initialTodos,
+    filter: '',
   };
 
-  // formSubmitHandler = data => {};
+  addTodo = text => {
+    const newTodo = {
+      id: shortid.generate(),
+      text,
+      completed: false,
+    };
+
+    this.setState(({ todos }) => ({ todos: [newTodo, ...todos] }));
+  };
+
+  changeFilter = ({ target: { value } }) => {
+    this.setState({ filter: value });
+  };
+
+  getFiltredTodos = () => {
+    const { todos, filter } = this.state;
+
+    const optimizedFilter = filter.toLowerCase();
+
+    return todos.filter(todo =>
+      todo.text.toLowerCase().includes(optimizedFilter),
+    );
+  };
+
+  getCompletedTodosQuantity = () => {
+    const { todos } = this.state;
+    return todos.reduce(
+      (total, todo) => (todo.completed ? total + 1 : total),
+      0,
+    );
+  };
 
   onToggleCompleted = todoId => {
     this.setState(({ todos }) => ({
@@ -33,23 +69,29 @@ class App extends Component {
   };
 
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
 
     const totalTodosCount = todos.length;
-    const completedTodosCount = todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0,
-    );
+    const completedTodosCount = this.getCompletedTodosQuantity();
+    const filtredTodos = this.getFiltredTodos();
 
     return (
-      <Container>
-        <TodoList
-          todos={todos}
-          onDeleteTodo={this.handleDeleteTodo}
-          onToggleCompleted={this.onToggleCompleted}
-        />
-        <TodoEditor onFormSubmit={this.formSubmitHandler} />
-      </Container>
+      <>
+        <AppBar />
+        <Container>
+          <TodoFilter filterText={filter} filterHandler={this.changeFilter} />
+          <TodoStats
+            allTodosQuant={totalTodosCount}
+            completedTodosQuant={completedTodosCount}
+          />
+          <TodoEditor onFormSubmit={this.addTodo} />
+          <TodoList
+            todos={filtredTodos}
+            onDeleteTodo={this.handleDeleteTodo}
+            onToggleCompleted={this.onToggleCompleted}
+          />
+        </Container>
+      </>
     );
   }
 }
